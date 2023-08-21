@@ -22,6 +22,7 @@ class MovieBrowser extends React.Component {
         // Note: You don't have to do this if you call a method
         // directly from a lifecycle method
         this.handleScroll = this.handleScroll.bind(this);
+        this.onSearchChange = this.onSearchChange.bind(this);
     }
 
     componentDidMount() {
@@ -44,18 +45,30 @@ class MovieBrowser extends React.Component {
             }
         }
     }
+    onSearchChange(e) {
+        this.props.searchMovies(e.target.value, this.state.currentPage);
+    }
+    // componentDidUpdate(prevProps) {
+    //     if (this.props.filteredMovies !== prevProps.filteredMovies) {
+    //         const { filteredMovies, topMovies } = this.props;
+    //         const moviesToRender = filteredMovies?.response?.results
+    //             ? movieHelpers.getMoviesList(prevProps.filteredMovies.response)
+    //             : movieHelpers.getMoviesList(topMovies.response);
+
+    //         this.setState({ currentMovies: moviesToRender });
+    //     }
+    // }
 
     render() {
-        const { topMovies } = this.props;
-        const movies = movieHelpers.getMoviesList(topMovies.response);
-
+        const { filteredMovies, topMovies } = this.props;
+        let movies = filteredMovies?.response ? movieHelpers.getMoviesList(filteredMovies.response) : movieHelpers.getMoviesList(topMovies.response);
         return (
             <div>
-                <PrimarySearchAppBar />
+                <PrimarySearchAppBar onSearchChange={this.onSearchChange} />
                 <Container>
                     <Row>
                         {/* <MovieList movies={movies} isLoading={topMovies.isLoading} /> */}
-                        <MovieListComponent movies={movies}  isLoading={topMovies.isLoading}/>
+                        <MovieListComponent movies={movies} isLoading={this.props.topMovies.isLoading} />
                     </Row>
                 </Container>
                 {/* <MovieModal /> */}
@@ -67,7 +80,8 @@ class MovieBrowser extends React.Component {
 export default connect(
     // Map nodes in our state to a properties of our component
     (state) => ({
-        topMovies: state.movieBrowser.topMovies
+        topMovies: state.movieBrowser.topMovies,
+
     }),
     // Map action creators to properties of our component
     { ...movieActions }

@@ -50,8 +50,10 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
 }));
 
-export default function PrimarySearchAppBar() {
-
+export default function PrimarySearchAppBar(props) {
+    const onSearchClick = (e) => {
+        props.onSearchChange(e);
+    }
     const menuId = 'primary-search-account-menu';
     return (
         <Box sx={{ flexGrow: 1 }}>
@@ -64,7 +66,7 @@ export default function PrimarySearchAppBar() {
                         <StyledInputBase
                             placeholder="Search…"
                             inputProps={{ 'aria-label': 'search' }}
-                            onChange={(e) => alert(e.target.value)}
+                            onChange={onSearchClick}
                         />
                     </Search>
                     <Box sx={{ flexGrow: 1 }} />

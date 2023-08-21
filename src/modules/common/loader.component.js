@@ -1,26 +1,13 @@
 import React from 'react';
-import _ from 'lodash';
-import { RefreshIndicator } from '@mui/material'
-
-const styles = {
-    refreshStyle: {
-        position: 'relative',
-        display: 'block',
-        margin: '0 auto'
-    }
-};
+import CircularProgress from '@mui/material/CircularProgress';
+import { Backdrop } from '@mui/material';
 
 const LoaderComponent = ({ isLoading, children }) => {
     if (isLoading) {
         return (
-            //   <RefreshIndicator
-            //     style={styles.refreshStyle}
-            //     top={0}
-            //     left={0}
-            //     size={80}
-            //     status={'loading'} 
-            //   />
-            <div>Loader here</div>
+            <Backdrop open={isLoading}>
+                <CircularProgress color="inherit" />
+            </Backdrop>
         );
     }
     // Render nothing if no children present

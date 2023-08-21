@@ -1,4 +1,4 @@
-import {combineReducers} from 'redux';
+import { combineReducers } from 'redux';
 import { createReducer, createAsyncReducer } from '../common/redux.helpers';
 import { keys as movieActionKeys } from './movie-browser.actions';
 import movieModalReducer from './movie-modal/movie-modal.reducer';
@@ -23,6 +23,26 @@ const moviesSuccessReducer = (state, action) => {
   };
 }
 
+const filteredMoviesReducer = (state, action) => {
+  return {
+    ...state,
+    isLoading: false,
+    response: action.response,
+  }
+  // Add other necessary cases or actions as needed
+}
+
+
+// const filteredMoviesReducer = createReducer(initialState, {
+//   [`${movieActionKeys.SEARCH_MOVIES}_SUCCESS`]: (state, action) => ({
+//     ...state,
+//     isLoading: false,
+//     response: action.response,
+//   }),
+//   // Add other necessary cases or actions as needed
+// });
+
+
 // Combines our movie browser related reducers to build our movieBrowser reducer
 const movieBrowserReducer = combineReducers({
   movieModal: movieModalReducer,
@@ -33,6 +53,7 @@ const movieBrowserReducer = combineReducers({
     [`${movieActionKeys.SEARCH_MOVIES}_SUCCESS`]: moviesSuccessReducer
   }),
   movieDetails: createAsyncReducer(movieActionKeys.GET_MOVIE_DETAILS),
+  filteredMovies: filteredMoviesReducer
 });
 
 export default movieBrowserReducer;

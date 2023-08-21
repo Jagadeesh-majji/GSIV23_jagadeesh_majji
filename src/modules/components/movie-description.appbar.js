@@ -59,7 +59,7 @@ export default function DescriptionAppBar(props) {
             <AppBar position="static">
                 <Toolbar>
 
-                    <Box sx={{ flexGrow: 1 }}><p>Movie details</p></Box>
+                    <Box sx={{ flexGrow: 1 }}><h2>Movie details</h2></Box>
                     <Box sx={{ flexGrow: 1 }} />
                     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
                         <IconButton

@@ -10,6 +10,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import * as movieActions from '../movie-browser/movie-browser.actions';
 import Loader from '../common/loader.component';
 import DescriptionAppBar from './movie-description.appbar';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 const styles = {
 
     card: {
@@ -26,16 +27,33 @@ const styles = {
     },
     content: {
         flex: 1,
-        padding: 2,
+
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'flex-start',
+        padding: '0.5rem'
     },
     header: {
         display: 'flex',
-        justifyContent: 'space-between',
         alignItems: 'center',
-        marginBottom: 1,
+        margin: '0.5rem'
+    },
+    year: {
+        paddingRight: "0.4rem",
+        borderRight: '0.2rem solid #000',
+        borderRadius: '0.1rem'
+    },
+    runtime: {
+        paddingLeft: "0.4rem",
+    },
+    descriptionTitle: {
+        fontWeight: 600,
+        paddingRight: '0.2rem'
     },
     title: {
-        fontSize: '1.2rem',
+        fontSize: '0.9rem',
+        marginRight: '0.4rem',
+        fontWeight: 600
     },
     ratingContainer: {
         background: '#f5f5f5',
@@ -44,7 +62,8 @@ const styles = {
     },
     description: {
         fontSize: '0.9rem',
-        whiteSpace: "pre-wrap"
+        whiteSpace: "pre-wrap",
+        margin: '0.4rem'
     },
 }
 const MovieDescriptionComponentConnected = (props) => {
@@ -86,7 +105,7 @@ const MovieDescriptionComponentConnected = (props) => {
                             />
                             <CardContent style={styles.content}>
                                 <div style={styles.header}>
-                                    <Typography variant="p" gutterBottom style={styles.title}>
+                                    <Typography variant="p" style={styles.title}>
                                         {valueInState.movieBrowser.movieDetails.response?.title}
                                     </Typography>
                                     <div style={styles.ratingContainer}>
@@ -95,10 +114,25 @@ const MovieDescriptionComponentConnected = (props) => {
                                         </Typography>
                                     </div>
                                 </div>
+                                <div style={styles.header}>
+                                    <Typography variant="p" style={styles.year}>
+                                        {new Date(valueInState.movieBrowser.movieDetails.response?.release_date).getFullYear()}
+                                    </Typography>
+                                    <Typography variant="p" style={styles.runtime}>
+                                        {`${valueInState.movieBrowser.movieDetails.response?.runtime} min`}
+                                    </Typography>
+                                </div>
                                 <Typography variant="body2" color="textSecondary" noWrap component="div">
                                     <p style={styles.description}>
-                                        {valueInState.movieBrowser.movieDetails.response?.overview}
+                                        <span style={styles.descriptionTitle}>Description: </span>{valueInState.movieBrowser.movieDetails.response?.overview}
                                     </p>
+                                </Typography>
+                                <Typography variant="body2" color="textSecondary" noWrap component="div" style={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                }} onClick={() => navigate("/")}>
+                                    <ArrowBackIcon style={{ marginRight: '4px' }} />
+                                    <span> Click  here to go back</span>
                                 </Typography>
                             </CardContent>
                         </div>
