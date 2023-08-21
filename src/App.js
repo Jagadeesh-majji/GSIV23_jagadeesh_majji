@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import MovieBrowser from './modules/movie-browser/movie-browser.container';
-import MovieDescriptionComponent from './modules/movie-browser/movie-description/movie-description.container';
+import MovieDescriptionComponent from './modules/components/movie-description.container';
 import { Routes, Route } from 'react-router-dom';
 import './App.css';
 
