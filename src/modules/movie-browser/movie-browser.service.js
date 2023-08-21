@@ -1,8 +1,7 @@
-// WARNING: Don't check your actual API key into GitHub
-//import {MOVIE_DB_API_KEY} from '../../api-keys';
-const MOVIE_DB_BASE_URL = 'https://api.themoviedb.org/3';
 
-const MOVIE_DB_API_KEY = "";
+const MOVIE_DB_BASE_URL = "https://api.themoviedb.org/3";
+
+const MOVIE_DB_API_KEY = process.env.REACT_APP_MOVIE_API_KEY;
 const createMovieDbUrl = (relativeUrl, queryParams) => {
     let baseUrl = `${MOVIE_DB_BASE_URL}${relativeUrl}?api_key=${MOVIE_DB_API_KEY}&language=en-US`;
     if (queryParams) {
