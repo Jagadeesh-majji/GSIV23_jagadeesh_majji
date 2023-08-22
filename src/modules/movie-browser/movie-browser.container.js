@@ -15,7 +15,7 @@ class MovieBrowser extends React.Component {
         super(props);
         this.state = {
             currentPage: 1,
-            currentMovies: []
+            currentMovies: [],
         };
         // Binds the handleScroll to this class (MovieBrowser)
         // which provides access to MovieBrowser's props
@@ -34,6 +34,7 @@ class MovieBrowser extends React.Component {
         window.removeEventListener('scroll', this.handleScroll);
     }
 
+
     handleScroll() {
         const { topMovies } = this.props;
         if (!topMovies.isLoading) {
@@ -48,41 +49,32 @@ class MovieBrowser extends React.Component {
     onSearchChange(e) {
         this.props.searchMovies(e.target.value, this.state.currentPage);
     }
-    // componentDidUpdate(prevProps) {
-    //     if (this.props.filteredMovies !== prevProps.filteredMovies) {
-    //         const { filteredMovies, topMovies } = this.props;
-    //         const moviesToRender = filteredMovies?.response?.results
-    //             ? movieHelpers.getMoviesList(prevProps.filteredMovies.response)
-    //             : movieHelpers.getMoviesList(topMovies.response);
 
-    //         this.setState({ currentMovies: moviesToRender });
-    //     }
-    // }
 
     render() {
-        const { filteredMovies, topMovies } = this.props;
-        let movies = filteredMovies?.response ? movieHelpers.getMoviesList(filteredMovies.response) : movieHelpers.getMoviesList(topMovies.response);
+        const { movieSearch, topMovies } = this.props;
+
+
+        let movies = (movieSearch?.response?.results || []).length > 0 ? movieHelpers.getMoviesList(movieSearch.response) : movieHelpers.getMoviesList(topMovies.response);
         return (
             <div>
-                <PrimarySearchAppBar onSearchChange={this.onSearchChange} />
+                <PrimarySearchAppBar onSearchChange={this.onSearchChange} inputSearchValue={this.state.searchValue} />
                 <Container>
                     <Row>
-                        {/* <MovieList movies={movies} isLoading={topMovies.isLoading} /> */}
                         <MovieListComponent movies={movies} isLoading={this.props.topMovies.isLoading} />
                     </Row>
                 </Container>
-                {/* <MovieModal /> */}
             </div>
         );
     }
 }
 
-export default connect(
-    // Map nodes in our state to a properties of our component
-    (state) => ({
-        topMovies: state.movieBrowser.topMovies,
+const mapStateToProps = (state) => ({
+    topMovies: state.movieBrowser.topMovies,
+    movieSearch: state.movieBrowser.movieSearch
+});
 
-    }),
-    // Map action creators to properties of our component
+export default connect(
+    mapStateToProps,
     { ...movieActions }
 )(MovieBrowser);

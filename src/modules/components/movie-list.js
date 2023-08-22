@@ -1,12 +1,7 @@
 import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import Grid from '@mui/material/Grid';
-import { Box } from '@mui/material';
-import { Typography } from '@mui/material';
-// import Container from '@mui/material';
-// import MovieCard from '../movie-card/movie-card.component';
 import MovieCardComponentConnected from ".//movie-card"
-//import LoaderComponent from '../loader.component';
 import LoaderComponent from '../common/loader.component';
 
 const styles = {
@@ -19,8 +14,7 @@ const styles = {
 }
 const MovieListComponent = ({ movies, isLoading }) => {
 
-
-    const moviesUpdatedColumn = movies ?
+    const moviesUpdatedColumn = movies && movies.length > 0 ?
         <>
             <Container className={"grid-container"} maxWidth="xl" style={styles.container}>
                 <Grid
@@ -33,7 +27,7 @@ const MovieListComponent = ({ movies, isLoading }) => {
                     {
                         movies.map(data => (
                             <Grid item
-                                key={`GridItem-${data.title}`} xs={12} sm={6} md={4} lg={3} xl={2}
+                                key={`GridItem-item-${new Date().getTime()}-${Math.random()}`} xs={12} sm={6} md={4} lg={3} xl={2}
                             >
                                 <MovieCardComponentConnected movie={data} />
                             </Grid>
@@ -41,12 +35,13 @@ const MovieListComponent = ({ movies, isLoading }) => {
                     }
                 </Grid>
             </Container>
-        </> : null;
+        </> : <div>No items to display..</div>
 
     return (
         <Row >
-            {moviesUpdatedColumn}
-            <LoaderComponent isLoading={isLoading} />
+            {isLoading ?
+                (<LoaderComponent isLoading={isLoading} />) : (moviesUpdatedColumn)
+            }
         </Row>
     );
 }

@@ -22,15 +22,26 @@ const moviesSuccessReducer = (state, action) => {
     }
   };
 }
-
-const filteredMoviesReducer = (state, action) => {
+const moviesSearchReducer = (state, action) => {
+  const existingMovies = state.response ? state.response.results : [];
+  // Create a new state object to be returned
+  // When creating the new state, be sure to include any
+  // existing properties we want to persist
   return {
     ...state,
     isLoading: false,
-    response: action.response,
-  }
-  // Add other necessary cases or actions as needed
+    response: action.response
+  };
 }
+
+// const filteredMoviesReducer = (state, action) => {
+//   return {
+//     ...state,
+//     isLoading: false,
+//     response:  action.response,
+//   }
+//   // Add other necessary cases or actions as needed
+// }
 
 
 // const filteredMoviesReducer = createReducer(initialState, {
@@ -50,10 +61,10 @@ const movieBrowserReducer = combineReducers({
     [`${movieActionKeys.GET_TOP_MOVIES}_SUCCESS`]: moviesSuccessReducer
   }),
   movieSearch: createAsyncReducer(movieActionKeys.SEARCH_MOVIES, {
-    [`${movieActionKeys.SEARCH_MOVIES}_SUCCESS`]: moviesSuccessReducer
+    [`${movieActionKeys.SEARCH_MOVIES}_SUCCESS`]: moviesSearchReducer
   }),
   movieDetails: createAsyncReducer(movieActionKeys.GET_MOVIE_DETAILS),
-  filteredMovies: filteredMoviesReducer
+  // filteredMovies: filteredMoviesReducer
 });
 
 export default movieBrowserReducer;
