@@ -7,6 +7,7 @@ import IconButton from '@mui/material/IconButton';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
 import HomeIcon from '@mui/icons-material/Home';
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -54,6 +55,7 @@ export default function PrimarySearchAppBar(props) {
     const onSearchClick = (e) => {
         props.onSearchChange(e);
     }
+    const navigate = useNavigate();
     const menuId = 'primary-search-account-menu';
     return (
         <Box sx={{ flexGrow: 1 }}>
@@ -77,7 +79,7 @@ export default function PrimarySearchAppBar(props) {
                             aria-label="account of current user"
                             aria-controls={menuId}
                             aria-haspopup="true"
-                            onClick={() => alert("home clicked...")}
+                            onClick={() => navigate("/")}
                             color="inherit"
                         >
 
