@@ -1,6 +1,6 @@
 # React Movies Application
 
-Welcome to the React Movies Application! This is a simple web application built using React that allows users to browse and view information about movies. This application container two pages 
+Welcome to the React Movies Application! This is a simple web application built using React that allows users to browse and view information about movies. This application container two pages
 
 - Movies list page to display the list of movies.
 - Movie description page to display the information about selected movie.
@@ -14,9 +14,10 @@ Welcome to the React Movies Application! This is a simple web application built 
 ### Netlify-link
 
 You can use the link here to view the application hosted using netlify [Netlify link](https://64e424724c04e713372dfb54--tubular-cactus-9040df.netlify.app/)
+
 ## Available Scripts
 
-In the project directory, you can run:
+After cloning the application, in the project directory, you can run:
 
 ### `npm start`
 
